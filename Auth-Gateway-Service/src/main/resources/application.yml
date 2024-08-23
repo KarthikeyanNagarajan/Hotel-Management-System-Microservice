@@ -1,0 +1,53 @@
+server :
+  port : 8082
+
+# Spring
+spring :
+  application :
+    name : auth-gateway-service
+  datasource : 
+    url : jdbc:mysql://127.0.0.1:3306/AuthDB?createDatabaseIfNotExist=true
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    username : root
+    password : password
+  jpa : 
+    show-sql : true
+    generate-ddl : true
+    defer-datasource-initialization : true
+    hibernate : 
+      ddl-auto : create-drop
+    properties : 
+      hibernate : 
+        format_sql : true
+  sql : 
+    init : 
+      mode : always
+
+# Eureka
+eureka : 
+  instance : 
+    hostname : localhost
+  client : 
+    registerWithEureka : true
+    fetchRegistry : true
+    serviceUrl : 
+      defaultZone : http://localhost:8761/eureka
+
+
+# Actuator
+info : 
+  app : 
+    name : auth-gateway-service
+    description : auth-gateway-service Application
+    version : 1.0.0
+endpoints : 
+  shutdown : 
+    enabled : true
+management : 
+  endpoint : 
+    shutdown : 
+      enabled : true
+  endpoints : 
+    web : 
+      exposure : 
+        include : "*"

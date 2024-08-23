@@ -1,0 +1,4 @@
+Insert into rating_table (rating_id, user_id, hotel_id, user_name, hotel_name, hotel_rating, remarks) VALUES (1, 1, 1, 'Karthik', 'Park', 4, 'Park - Good Hotel');
+Insert into rating_table (rating_id, user_id, hotel_id, user_name, hotel_name, hotel_rating, remarks) VALUES (2, 1, 2, 'Karthik', 'LeelaPalace', 5, 'LeelaPalace - Very Good Hotel');
+Insert into rating_table (rating_id, user_id, hotel_id, user_name, hotel_name, hotel_rating, remarks) VALUES (3, 1, 3, 'Karthik', 'Marriot', 5, 'Marriot - Very Good Hotel');
+Insert into rating_table (rating_id, user_id, hotel_id, user_name, hotel_name, hotel_rating, remarks) VALUES (4, 1, 4, 'Karthik', 'Hilton', 4, 'Hilton - Good Hotel');
