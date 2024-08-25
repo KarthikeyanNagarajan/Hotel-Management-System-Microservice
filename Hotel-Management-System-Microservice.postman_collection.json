@@ -1,0 +1,835 @@
+{
+	"info": {
+		"_postman_id": "d6b7e75e-906c-4bad-9074-19ac8bad3357",
+		"name": "Hotel-Management-System-Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27641596"
+	},
+	"item": [
+		{
+			"name": "Hotel-Service",
+			"item": [
+				{
+					"name": "getAllHotels - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getAllHotels"
+					},
+					"response": []
+				},
+				{
+					"name": "getHotelById - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getHotelById/3"
+					},
+					"response": []
+				},
+				{
+					"name": "getHotelsByLocation - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getHotelsByLocation/chennai"
+					},
+					"response": []
+				},
+				{
+					"name": "getHotelByName - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getHotelByName/Hilton"
+					},
+					"response": []
+				},
+				{
+					"name": "saveHotel - admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"name\": \"Taj\",\r\n    \"contact\": \"5554556789\",\r\n    \"location\": \"Chennai\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/hotelservice/admin/saveHotel"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteHotelById - admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/hotelservice/admin/deleteHotelById/5"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllRoomsByHotelId - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getAllRoomsByHotelId/3"
+					},
+					"response": []
+				},
+				{
+					"name": "getRoomByRoomId - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getRoomByRoomId/25"
+					},
+					"response": []
+				},
+				{
+					"name": "getAvailableRoomsByHotelId - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getAvailableRoomsByHotelId/2"
+					},
+					"response": []
+				},
+				{
+					"name": "getBookedRoomsByHotelId - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/hotelservice/admin/getBookedRoomsByHotelId/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getHotelAndRoomDetails - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/hotelservice/guest/getHotelAndRoomDetails/1/1"
+					},
+					"response": []
+				},
+				{
+					"name": "updateRoomStatusByHotelRoomId - admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/hotelservice/admin/updateRoomStatusByHotelRoomId/1/1/BOOKED"
+					},
+					"response": []
+				},
+				{
+					"name": "saveRoomByHotelId -admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 31,\r\n        \"roomPrice\": 15500,\r\n        \"roomType\": \"SUITE\",\r\n        \"status\": \"AVAILABLE\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/hotelservice/admin/saveRoomByHotelId/4"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRoomByRoomId - admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/hotelservice/admin/deleteRoomByRoomId/31"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking-Service",
+			"item": [
+				{
+					"name": "createBooking - user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"hotelId\": 3,\r\n    \"roomId\": 17,\r\n    \"checkindate\": \"2024-08-14\",\r\n    \"checkoutdate\": \"2024-08-15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/bookingservice/user/createBooking"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllBookings - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/bookingservice/admin/getAllBookings"
+					},
+					"response": []
+				},
+				{
+					"name": "getBookingById - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/bookingservice/useradmin/getBookingById/1"
+					},
+					"response": []
+				},
+				{
+					"name": "cancelBookingById - useradmin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/bookingservice/useradmin/cancelBookingById/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User-Service",
+			"item": [
+				{
+					"name": "getAllUsers - admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/userservice/admin/getAllUsers"
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/userservice/useradmin/getUserById/2"
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByName - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/userservice/useradmin/getUserByName/Karthik"
+					},
+					"response": []
+				},
+				{
+					"name": "saveUser - feign",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Karthik123\",\r\n    \"email\": \"karthik123@gmail.com\",\r\n    \"phoneno\": \"1234567895\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/userservice/feign/saveuser"
+					},
+					"response": []
+				},
+				{
+					"name": "getWalletByUserId - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/userservice/useradmin/getWalletByUserId/2"
+					},
+					"response": []
+				},
+				{
+					"name": "getWalletBalanceByUserId - user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/userservice/user/getWalletBalanceByUserId/2"
+					},
+					"response": []
+				},
+				{
+					"name": "updateBalanceByUserId - user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/userservice/user/updateBalanceByUserId/1/25000"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment-Service",
+			"item": [
+				{
+					"name": "getAllPayments - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/paymentservice/admin/getAllPayments"
+					},
+					"response": []
+				},
+				{
+					"name": "getPaymentById - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/paymentservice/useradmin/getPaymentById/1"
+					},
+					"response": []
+				},
+				{
+					"name": "makePaymentByUserId - user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/paymentservice/user/makePaymentByUserId/1/4000"
+					},
+					"response": []
+				},
+				{
+					"name": "refundPaymentByPaymentId - useradmin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/paymentservice/useradmin/refundPaymentByPaymentId/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rating-Service",
+			"item": [
+				{
+					"name": "getAllRatings - guest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/ratingservice/guest/getAllRatings"
+					},
+					"response": []
+				},
+				{
+					"name": "getRatingsByUserId - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/ratingservice/useradmin/getRatingsByUserId/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getRatingsByHotelId - useradmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8082/ratingservice/useradmin/getRatingsByHotelId/1"
+					},
+					"response": []
+				},
+				{
+					"name": "saveRating - user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userid\" : 2,\r\n    \"hotelid\" : 1,\r\n    \"rating\" : 5,\r\n    \"remarks\" : \"Park - Very Good Hotel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/ratingservice/user/saveRating"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth-Gateway-Service",
+			"item": [
+				{
+					"name": "register - guest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"User125\",\r\n    \"password\" : \"pwd125\",\r\n    \"email\" : \"user125@gmail.com\",\r\n    \"phoneno\" : \"1111122225\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/register"
+					},
+					"response": []
+				},
+				{
+					"name": "getToken - guest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"Karthik123\",\r\n    \"password\" : \"pwd123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/getToken"
+					},
+					"response": []
+				},
+				{
+					"name": "getUsersCredentials - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/getUsersCredentials"
+					},
+					"response": []
+				},
+				{
+					"name": "getUserRoles - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/getUserRoles"
+					},
+					"response": []
+				},
+				{
+					"name": "usersTest - user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/usersTest"
+					},
+					"response": []
+				},
+				{
+					"name": "adminsTest - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrIiwiaWF0IjoxNzIzNzE1NTA2LCJleHAiOjE3MjM4MDE5MDZ9.N6_7-XlSQy3C3e5nm-JNk1PrSRjuWTvXC-EVuuiwz2o",
+								"description": "admin",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJ0aGlrMTIzIiwiaWF0IjoxNzIzNzE1NTQxLCJleHAiOjE3MjM4MDE5NDF9.PmhV5oRoHFM6hV4DYkynZJMPWzymtvN-n6GewdHX0dg",
+								"description": "user",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "http://localhost:8082/adminsTest"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
