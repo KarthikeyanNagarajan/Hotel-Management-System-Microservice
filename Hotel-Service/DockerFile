@@ -1,0 +1,9 @@
+FROM openjdk:17-jdk-alpine
+
+VOLUME /tmp
+
+ADD target/Hotel-Service-0.0.1-SNAPSHOT.jar Hotel-Service-0.0.1-SNAPSHOT.jar
+
+EXPOSE 8086
+
+ENTRYPOINT ["java","-jar","/Hotel-Service-0.0.1-SNAPSHOT.jar"]

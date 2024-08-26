@@ -1,0 +1,9 @@
+FROM openjdk:17-jdk-alpine
+
+VOLUME /tmp
+
+ADD target/Config-Service-0.0.1-SNAPSHOT.jar Config-Service-0.0.1-SNAPSHOT.jar
+
+EXPOSE 8081
+
+ENTRYPOINT ["java","-jar","/Config-Service-0.0.1-SNAPSHOT.jar"]
