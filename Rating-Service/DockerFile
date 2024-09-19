@@ -1,9 +1,13 @@
 FROM openjdk:17-jdk-alpine
 
-VOLUME /tmp
+LABEL maintainer="karthik97nagaraj@gmail.com"
 
-ADD target/Rating-Service-0.0.1-SNAPSHOT.jar Rating-Service-0.0.1-SNAPSHOT.jar
+VOLUME /tmp
 
 EXPOSE 8087
 
-ENTRYPOINT ["java","-jar","/Rating-Service-0.0.1-SNAPSHOT.jar"]
+ARG JAR_FILE=target/Rating-Service-0.0.1-SNAPSHOT.jar
+
+ADD ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]
