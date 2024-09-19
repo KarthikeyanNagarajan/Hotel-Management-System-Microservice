@@ -39,7 +39,9 @@ public class SecurityConfig {
 			"/hotelservice/guest/**",
 			"/ratingservice/guest/**",
 			"/paymentservice/guest/**",
-			"/bookingservice/guest/**"};
+			"/bookingservice/guest/**",
+			"/fallback/**",
+			"/error"};
 	
 	private static final String[] AUTH_USER = { 
 			"/usersTest", 
