@@ -8,41 +8,66 @@ This repository contains application that is designed to manage various aspects 
 
 - Java 17
 - Maven
-- MySQL
 - Spring Boot
 - Spring Data JPA
+- MySQL
+- GIT
+- JWT
+- Lombok
+- Feign Client
 - Spring Security
 - Spring Cloud
-- Spring Cloud Gateway
+- Spring Cloud Gateway MVC
 - Spring Cloud Config
-- JWT
+- Spring Cloud Loadbalancer
+- Resilience4j
 - Netflix Eureka
 - Docker
 
 ## Microservice Patterns Used 
 
-- #### Saga Pattern: 
+#### Database Per Service Pattern:
 
-   Basically used during the payment/refund process to ensure that a series of local transactions are all executed or compensated. Each step is an individual local transaction and has a compensating transaction.
-  - Example: If Payment is unsuccessful then blocked room is released. Also If the refund is not processed then the reservation is not cancelled.
+A database dedicated to one service can't be accessed by other services. This is one of the reasons that makes it much easier to scale and understand from a whole end-to-end business aspect. This structure also reduces coupling as one service can’t tie itself to the tables of another. Services are forced to communicate via published interfaces. The downside is that dedicated databases require a failure protection mechanism for events where communication fails.
 
-- #### API Gateway Pattern: 
+#### Saga Pattern: 
 
-  All client requests go through an API Gateway (Spring Cloud Gateway), which routes requests to appropriate services.
+Utilized during payment and refund processes to ensure that a series of local transactions are either all executed or compensated. Each step is an individual local transaction with a corresponding compensating transaction.
+- Example: If a payment fails, any blocked room is released. Similarly, if a refund cannot be processed, the reservation remains active.
+
+#### API Gateway Pattern: 
+
+All client requests are routed through an API Gateway (Spring Cloud Gateway), which directs requests to the appropriate microservices. The client also doesn’t need to know how to find or communicate with a multitude of ever-changing services. We can also create a gateway for specific types of clients (for example, backends for frontends) which improve ergonomics and reduce the number of roundtrips needed to fetch data. Plus, an API gateway pattern can take care of crucial tasks like authentication, SSL termination and caching, which makes your app more secure and user-friendly.
+
+#### Circuit breaker design pattern:
+
+Implementing this pattern as a function in a circuit breaker design requires an object to be called to monitor failure conditions. When a failure condition is detected, the circuit breaker will trip. Once this has been tripped, all calls to the circuit breaker will result in an error and be directed to a different service. Alternatively, calls can result in a default error message being retrieved.
+
+There are three states of the circuit breaker pattern functions that developers should be aware of. These are:
+
+- **Open:** A circuit breaker pattern is open when the number of failures has exceeded the threshold. When in this state, the microservice gives errors for the calls without executing the desired function.
+
+- **Closed:** When a circuit breaker is closed, it's in the default state and all calls are responded to normally. This is the ideal state developers want a circuit breaker microservice to remain in — in a perfect world, of course.
+
+- **Half-open:** When a circuit breaker is checking for underlying problems, it remains in a half-open state. Some calls may be responded to normally, but some may not be. It depends on why the circuit breaker switched to this state initially.
 
 ## Features
 
-This application contains 3 Roles **(Guest, User, Useradmin)**, these roles define which URL can be accessed with the JWT token. 
-It also provides below services, their **GET/POST** Request, Roles needed to access URL and their features:
+This application includes three role **Guest, User, and UserAdmin** each defining access levels for various URLs based on JWT tokens. Below are the services provided, along with their corresponding HTTP methods and access roles.
 
- #### Eureka-Service:
-   Register and discover microservices.
+Below are the services used, their **GET/POST** Request, Roles needed to access URL and their features:
 
- #### Config-Service:
-   Centralized configuration management for microservices.
+#### Eureka-Service:
+ 
+Service Discovery to Register and discover microservices.
 
- #### Auth-Gateway-Service:
-   Unified access point for microservices with JWT user authentication and authorization.
+#### Config-Service:
+ 
+Centralized configuration management for microservices. This service fetches config files from the git repository.
+
+#### Auth-Gateway-Service:
+
+Unified access point for microservices with JWT user authentication and authorization.
 
    - **Guest Role**
        > **POST:** Register User.
@@ -54,7 +79,7 @@ It also provides below services, their **GET/POST** Request, Roles needed to acc
        > 
        > **GET:** Get User Roles.
 
- #### User-Service:
+#### User-Service:
 
    - **Admin Role**
        > **GET:** Get User details.
@@ -71,7 +96,7 @@ It also provides below services, their **GET/POST** Request, Roles needed to acc
        > 
        > **POST:** Update Wallet Balance by UserId.
 
- #### Hotel-Service:
+#### Hotel-Service:
 
    - **Guest Role**
        > **GET:** Get Hotel details.
@@ -103,7 +128,7 @@ It also provides below services, their **GET/POST** Request, Roles needed to acc
        > 
        > **DELETE:** Delete Room by RoomId.
 
- #### Rating-Service:
+#### Rating-Service:
 
    - **Guest Role**
        > **GET:** Get All Ratings.
@@ -116,7 +141,7 @@ It also provides below services, their **GET/POST** Request, Roles needed to acc
    - **User Role**
        > **POST:** Add Rating.
 
- #### Payment-Service:
+#### Payment-Service:
 
    - **Admin Role**
        > **GET:** Get Payment Details.
@@ -129,7 +154,7 @@ It also provides below services, their **GET/POST** Request, Roles needed to acc
    - **User Role**
        > **POST:** Make Payment by UserId.
 
- #### Booking-Service:
+#### Booking-Service:
    - **User Role**
        > **POST:** Create Booking.
 
