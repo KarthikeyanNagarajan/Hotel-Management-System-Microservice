@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.karthik.hotelmanagement.model.PaymentDto;
 
-@FeignClient(name = "payment-service", url = "http://localhost:8088", path = "/paymentservice")
+@FeignClient(name = "payment-service", path = "/paymentservice")
 public interface PaymentBookingFeignClient {
 
 	@PostMapping("/user/makePaymentByUserId/{userid}/{amount}")

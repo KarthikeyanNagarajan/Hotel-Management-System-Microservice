@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.karthik.hotelmanagement.entity.Payment;
 import com.karthik.hotelmanagement.feignclient.UserPaymentFeignClient;
-import com.karthik.hotelmanagement.model.UserDto;
+import com.karthik.hotelmanagement.model.WalletDto;
 import com.karthik.hotelmanagement.repository.PaymentRepository;
+import feign.FeignException;
 
 @Service
 public class PaymentService {
@@ -35,11 +36,8 @@ public class PaymentService {
 		payment.setUserid(userid);
 		payment.setAmount(amount);
 
-		UserDto userDto = userPaymentFeignClient.getUserById(userid);
-		int balance = userDto.getWallet().getBalance();
-		if (balance >= amount) {
-			balance -= amount;
-			userPaymentFeignClient.updateBalanceByUserId(userid, balance);
+		boolean debited = adjustWalletBalance(userid, amount);
+		if (debited) {
 			payment.setStatus("Payment Success");
 		} else
 			payment.setStatus("Payment Failed. Insufficient Balance");
@@ -50,18 +48,19 @@ public class PaymentService {
 	public Payment refundPayment(int id) {
 		Payment payment = getPaymentById(id);
 		if (payment != null) {
-
-			UserDto userDto = userPaymentFeignClient.getUserById(payment.getUserid());
-
-			int balance = userDto.getWallet().getBalance();
-			balance += payment.getAmount();
-
-			userPaymentFeignClient.updateBalanceByUserId(payment.getUserid(), balance);
-
+			adjustWalletBalance(payment.getUserid(), payment.getAmount());
 			payment.setStatus("Payment Refunded");
-
 			return savePayment(payment);
 		}
 		return null;
+	}
+
+	public boolean adjustWalletBalance(int userId, int delta) {
+		try {
+			WalletDto wallet = userPaymentFeignClient.adjustBalanceByUserId(userId, delta);
+			return wallet != null;
+		} catch (FeignException.Conflict e) {
+			return false;
+		}
 	}
 }

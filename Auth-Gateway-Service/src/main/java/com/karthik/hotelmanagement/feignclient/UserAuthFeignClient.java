@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.karthik.hotelmanagement.model.UserRegisterDto;
 
-@FeignClient(name = "user-service", url = "http://localhost:8085", path = "/userservice")
+@FeignClient(name = "user-service", path = "/userservice")
 public interface UserAuthFeignClient {
 
 	@PostMapping("/feign/saveuser")

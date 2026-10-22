@@ -3,6 +3,7 @@ package com.karthik.hotelmanagement.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.karthik.hotelmanagement.entity.User;
 import com.karthik.hotelmanagement.entity.Wallet;
 import com.karthik.hotelmanagement.repository.UserRepository;
@@ -56,13 +57,10 @@ public class UserService {
 		return balance;
 	}
 
-	public Wallet updateBalance(int id, int amount) {
-		Wallet wallet = getWalletByUserId(id);
-		if (wallet != null) {
-			wallet.setBalance(amount);
-			walletRepository.save(wallet);
-		}
-		return wallet;
+	@Transactional 
+	public boolean adjustBalance(int id, int delta) {
+		int rowsUpdated = walletRepository.adjustBalanceByUserId(id, delta);
+		return rowsUpdated > 0;
 	}
 
 	public Wallet createWallet(User user) {

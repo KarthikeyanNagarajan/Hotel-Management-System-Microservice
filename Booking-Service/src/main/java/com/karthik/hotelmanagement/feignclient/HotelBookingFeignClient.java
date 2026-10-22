@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.karthik.hotelmanagement.model.HotelRoomDto;
 
-@FeignClient(name = "hotel-service", url = "http://localhost:8086", path = "/hotelservice")
+@FeignClient(name = "hotel-service", path = "/hotelservice")
 public interface HotelBookingFeignClient {
 
 	@GetMapping("/guest/getHotelAndRoomDetails/{hotelId}/{roomId}")

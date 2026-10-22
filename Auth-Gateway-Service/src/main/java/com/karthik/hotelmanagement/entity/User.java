@@ -1,6 +1,7 @@
 package com.karthik.hotelmanagement.entity;
 
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +32,7 @@ public class User {
 	@Column(name = "user_name")
 	private String name;
 
+	@JsonIgnore 
 	@Column(name = "user_pwd")
 	private String password;
 

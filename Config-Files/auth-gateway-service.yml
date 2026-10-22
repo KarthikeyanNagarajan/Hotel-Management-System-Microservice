@@ -8,8 +8,8 @@ spring :
   datasource : 
     url : jdbc:mysql://127.0.0.1:3306/AuthDB?createDatabaseIfNotExist=true
     driver-class-name : com.mysql.cj.jdbc.Driver
-    username : root
-    password : password
+    username : ${DB_USERNAME:root}
+    password : ${DB_PASSWORD:password}
   jpa : 
     show-sql : true
     generate-ddl : true
@@ -22,6 +22,11 @@ spring :
   sql : 
     init : 
       mode : always
+
+#JWT
+jwt :
+  secret : ${JWT_SECRET:197538927F423K7728472B5L62574553686K88597133743736897A2443268007}
+  expiration-ms : ${JWT_EXPIRATION_MS:86400000}
 
 # Eureka
 eureka : 
@@ -40,14 +45,11 @@ info :
     name : auth-gateway-service
     description : auth-gateway-service Application
     version : 1.0.0
-endpoints : 
-  shutdown : 
-    enabled : true
 management : 
   endpoint : 
     shutdown : 
-      enabled : true
+      enabled : false
   endpoints : 
     web : 
       exposure : 
-        include : "*"
+        include : health,info

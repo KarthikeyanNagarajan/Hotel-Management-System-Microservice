@@ -58,11 +58,10 @@ public class UserInfoService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User user = userRepository.findByName(username).orElse(null);
-		if (user != null)
-			return new UserInfoDetails(user);
+		User user = userRepository.findByName(username)
+								.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-		return null;
+		return new UserInfoDetails(user);
 	}
 
 	public void register(UserRegisterDto userDto) {

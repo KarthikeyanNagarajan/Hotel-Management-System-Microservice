@@ -67,12 +67,13 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(balance);
 	}
 
-	@PostMapping("/user/updateBalanceByUserId/{id}/{amount}")
-	public ResponseEntity<Wallet> updateBalanceByUserId(@PathVariable int id, @PathVariable int amount) {
-		Wallet wallet = userService.updateBalance(id, amount);
-		if (wallet != null)
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(wallet);
-		else
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	@PostMapping("/user/adjustBalanceByUserId/{id}/{delta}")
+	public ResponseEntity<Wallet> adjustBalanceByUserId(@PathVariable int id, @PathVariable int delta) {
+		boolean applied = userService.adjustBalance(id, delta);
+		if (!applied)
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+		
+		Wallet wallet = userService.getWalletByUserId(id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(wallet);
 	}
 }
