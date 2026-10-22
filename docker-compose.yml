@@ -1,0 +1,198 @@
+version: "3.8"
+
+# Brings up the full Hotel Management microservices stack: MySQL, Zipkin (tracing),
+# Eureka (discovery), Config Server, and all 6 business services behind the Auth-Gateway.
+#
+# Usage:
+#   1. Build each service's jar first: mvn -f <Service>/pom.xml clean package -DskipTests
+#   2. Copy .env.example to .env and adjust secrets if desired.
+#   3. docker-compose up --build
+#
+# Startup order is enforced via depends_on, but Eureka/Config readiness isn't strictly
+# health-checked here - services have retry/backoff via Spring Cloud Config's fail-fast
+# + Eureka client retries, so a few restart log lines on first boot are expected and
+# resolve once Eureka/Config are up.
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: hms-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_USER: ${DB_USERNAME:-root}
+    ports:
+      - "3306:3306"
+    volumes:
+      - hms-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_PASSWORD:-password}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: hms-zipkin
+    restart: unless-stopped
+    ports:
+      - "9411:9411"
+
+  eureka-service:
+    build:
+      context: ./Eureka-Service
+    container_name: hms-eureka
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    environment:
+      EUREKA_INSTANCE_HOSTNAME: eureka-service
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      - zipkin
+
+  config-service:
+    build:
+      context: ./Config-Service
+    container_name: hms-config-service
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: config-service
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      - eureka-service
+
+  auth-gateway-service:
+    build:
+      context: ./Auth-Gateway-Service
+    container_name: hms-auth-gateway
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8081
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: auth-gateway-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/AuthDB?createDatabaseIfNotExist=true
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      JWT_SECRET: ${JWT_SECRET:-197538927F423K7728472B5L62574553686K88597133743736897A2443268007}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-86400000}
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      mysql:
+        condition: service_healthy
+      config-service:
+        condition: service_started
+
+  user-service:
+    build:
+      context: ./User-Service
+    container_name: hms-user-service
+    restart: unless-stopped
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8081
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: user-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/UserDB?createDatabaseIfNotExist=true
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      mysql:
+        condition: service_healthy
+      config-service:
+        condition: service_started
+
+  hotel-service:
+    build:
+      context: ./Hotel-Service
+    container_name: hms-hotel-service
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8081
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: hotel-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/HotelDB?createDatabaseIfNotExist=true
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      mysql:
+        condition: service_healthy
+      config-service:
+        condition: service_started
+
+  rating-service:
+    build:
+      context: ./Rating-Service
+    container_name: hms-rating-service
+    restart: unless-stopped
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8081
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: rating-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/RatingDB?createDatabaseIfNotExist=true
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      mysql:
+        condition: service_healthy
+      config-service:
+        condition: service_started
+
+  payment-service:
+    build:
+      context: ./Payment-Service
+    container_name: hms-payment-service
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8081
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: payment-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/PaymentDB?createDatabaseIfNotExist=true
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      mysql:
+        condition: service_healthy
+      config-service:
+        condition: service_started
+
+  booking-service:
+    build:
+      context: ./Booking-Service
+    container_name: hms-booking-service
+    restart: unless-stopped
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8081
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE_HOSTNAME: booking-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/BookingDB?createDatabaseIfNotExist=true
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      mysql:
+        condition: service_healthy
+      config-service:
+        condition: service_started
+
+volumes:
+  hms-mysql-data:

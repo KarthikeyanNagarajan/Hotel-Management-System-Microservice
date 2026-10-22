@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.karthik.hotelmanagement.entity.Hotel;
@@ -25,6 +28,11 @@ public class HotelService {
 
 	public List<Hotel> getAllHotels() {
 		return hotelRepository.findAll();
+	}
+
+	public Page<Hotel> getAllHotelsPaged(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return hotelRepository.findAll(pageable);
 	}
 
 	public Hotel getHotelById(int hotelId) {

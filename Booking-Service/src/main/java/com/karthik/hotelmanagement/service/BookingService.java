@@ -7,6 +7,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.karthik.hotelmanagement.entity.Booking;
 import com.karthik.hotelmanagement.feignclient.HotelBookingFeignClient;
@@ -38,6 +41,11 @@ public class BookingService {
 
 	public List<Booking> getAllBookings() {
 		return bookingRepository.findAll();
+	}
+
+	public Page<Booking> getAllBookingsPaged(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return bookingRepository.findAll(pageable);
 	}
 
 	public Booking getBookingById(int id) {

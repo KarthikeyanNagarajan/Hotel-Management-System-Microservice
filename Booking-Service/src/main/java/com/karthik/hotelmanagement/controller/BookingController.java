@@ -2,6 +2,7 @@ package com.karthik.hotelmanagement.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.karthik.hotelmanagement.entity.Booking;
 import com.karthik.hotelmanagement.model.BookingRequest;
@@ -25,8 +27,16 @@ public class BookingController {
 	@GetMapping("/admin/getAllBookings")
 	public ResponseEntity<List<Booking>> getAllBookings() {
 		List<Booking> bookings = bookingService.getAllBookings();
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(bookings);
+		return ResponseEntity.status(HttpStatus.OK).body(bookings);
 	}
+
+	@GetMapping("/admin/getAllBookingsPaged")
+    public ResponseEntity<Page<Booking>> getAllBookingsPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<Booking> bookings = bookingService.getAllBookingsPaged(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(bookings);
+    }
 
 	@GetMapping("/useradmin/getBookingById/{id}")
 	public ResponseEntity<Booking> getBookingById(@PathVariable("id") int id) {

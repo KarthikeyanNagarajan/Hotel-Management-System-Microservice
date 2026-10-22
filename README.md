@@ -170,6 +170,24 @@ Unified access point for microservices with JWT user authentication and authoriz
 
 ## Installation
 
+### Option A: Docker Compose (recommended – single command, no manual ordering)
+
+A root [docker-compose.yml](docker-compose.yml) wires up MySQL, Zipkin (distributed tracing), Eureka, Config Server, and all 6 business services with correct startup ordering, networking, and environment variable overrides (so services resolve each other via Docker's internal DNS instead of `localhost`).
+
+1. Clone the repository and `cd` into it.
+2. Build a jar for each service (skips tests for speed):
+       for d in Eureka-Service Config-Service Auth-Gateway-Service User-Service Hotel-Service Rating-Service Payment-Service Booking-Service; do (cd $d && mvn -q clean package -DskipTests); done
+3. (Optional) Copy `.env.example` to `.env` and adjust `JWT_SECRET`/`DB_USERNAME`/`DB_PASSWORD` if you don't want the defaults.
+4. Start everything:
+       docker-compose up --build
+5. Once containers are healthy:
+   - Eureka Dashboard: http://localhost:8761
+   - Zipkin UI (traces): http://localhost:9411
+   - Swagger UI per service, e.g. Booking-Service: http://localhost:8089/swagger-ui.html
+   - API Gateway entry point: http://localhost:8082
+
+### Option B: Run manually with Maven (original approach)
+
 1. Clone the repository.
 
        git clone https://github.com/KarthikeyanNagarajan/Hotel-Management-System-Microservice.git
