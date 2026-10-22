@@ -23,7 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
@@ -45,7 +45,10 @@ public class SecurityConfig {
 			"/paymentservice/guest/**",
 			"/bookingservice/guest/**",
 			"/fallback/**",
-			"/error"};
+			"/error",
+			"/swagger-ui/**",
+			"/swagger-ui.html",
+			"/v3/api-docs/**"};
 	
 	private static final String[] AUTH_USER = { 
 			"/usersTest", 

@@ -3,6 +3,9 @@ package com.karthik.hotelmanagement.service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.karthik.hotelmanagement.entity.Booking;
@@ -18,6 +21,8 @@ import com.karthik.hotelmanagement.repository.BookingRepository;
 
 @Service
 public class BookingService {
+
+	private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
 	@Autowired
 	private UserBookingFeignClient userBookingFeignClient;
@@ -51,14 +56,14 @@ public class BookingService {
 			userDto = userBookingFeignClient.getUserById(request.getUserId());
 			if (userDto != null) {
 
-				System.out.println(userDto);
+				logger.debug("User fetched for booking: {}", userDto);
 
 				try {
 					HotelRoomDto hotelRoomDto = hotelBookingFeignClient.getHotelAndRoomDetails(request.getHotelId(),
 							request.getRoomId());
 					if (hotelRoomDto != null) {
 
-						System.out.println(hotelRoomDto);
+						logger.debug("Hotel room fetched for booking: {}", hotelRoomDto);
 
 						if (!hotelRoomDto.getRooms().isEmpty()) {
 

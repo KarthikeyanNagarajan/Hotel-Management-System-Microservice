@@ -30,10 +30,12 @@ This repository contains application that is designed to manage various aspects 
 
 A database dedicated to one service can't be accessed by other services. This is one of the reasons that makes it much easier to scale and understand from a whole end-to-end business aspect. This structure also reduces coupling as one service can’t tie itself to the tables of another. Services are forced to communicate via published interfaces. The downside is that dedicated databases require a failure protection mechanism for events where communication fails.
 
-#### Saga Pattern: 
+#### Manual Compensation Transaction Flow (not a full Saga orchestration): 
 
-Utilized during payment and refund processes to ensure that a series of local transactions are either all executed or compensated. Each step is an individual local transaction with a corresponding compensating transaction.
-- Example: If a payment fails, any blocked room is released. Similarly, if a refund cannot be processed, the reservation remains active.
+Used during the booking ➔ payment flow to ensure that if a later step fails, earlier side-effects are rolled back via explicit compensating calls rather than left inconsistent. Each step is a synchronous Feign call; failures trigger an inline compensation rather than a persisted state machine.
+- Example: If room confirmation fails after payment has already succeeded, the booking flow automatically issues a refund and attempts to release the room, with explicit status tracking (e.g. "BOOKING FAILED - ROOM CONFIRMATION ERROR, PAYMENT REFUNDED") if either compensating step itself fails.
+- **Note:** This is a simplified, synchronous implementation - not a true orchestrated/choreographed Saga with a persisted state machine or async messaging (e.g. Kafka + outbox pattern). A production-grade version would track saga state explicitly (e.g. STARTED ➔ ROOM_HELD ➔ PAYMENT_DONE ➔ CONFIRMED / ROLLING_BACK ➔ COMPENSATED) and decouple steps via a message broker for resilience against partial failures and service restarts.
+
 
 #### API Gateway Pattern: 
 
